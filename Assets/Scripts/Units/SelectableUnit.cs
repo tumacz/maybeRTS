@@ -8,6 +8,8 @@ public class SelectableUnit : MonoBehaviour, ISelection
     private UnitSelectionManager _selectionManager;
     private ISelectionResponse _selectionResponse;
 
+    public Vector3 CurrentPosition => transform.position;
+
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -44,6 +46,22 @@ public class SelectableUnit : MonoBehaviour, ISelection
         if(_selectionResponse != null )
         {
             _selectionResponse.OnDeselectedResponse();
+        }
+    }
+
+    public void OnHoverEnter()
+    {
+        if (_selectionResponse != null)
+        {
+            _selectionResponse.OnHoverEnterResponse();
+        }
+    }
+
+    public void OnHoverExit()
+    {
+        if (_selectionResponse != null)
+        {
+            _selectionResponse.OnHoverExitResponse();
         }
     }
 }

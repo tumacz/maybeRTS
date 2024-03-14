@@ -5,6 +5,8 @@ public class SelectableBuilding : MonoBehaviour, ISelection
     private UnitSelectionManager _selectionManager;
     private ISelectionResponse _selectionResponse;
 
+    public Vector3 CurrentPosition => transform.position;
+
     private void Awake()
     {
         _selectionManager = FindObjectOfType<UnitSelectionManager>();
@@ -27,5 +29,15 @@ public class SelectableBuilding : MonoBehaviour, ISelection
     public void OnSelected()
     {
         _selectionResponse.OnSelectedResponse();
+    }
+
+    public void OnHoverEnter()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnHoverExit()
+    {
+        throw new System.NotImplementedException();
     }
 }

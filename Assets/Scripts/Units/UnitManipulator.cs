@@ -1,27 +1,30 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ElementsSelectionResponse : MonoBehaviour, IResponse
+public class UnitManipulator : MonoBehaviour, IResponse
 {
     [SerializeField] private UnitSelectionManager _unitSelectionManager;
     [SerializeField] private RectTransform _selectionbox;
     [SerializeField] private LayerMask _unitLayerMask;
-    [SerializeField] private LayerMask _floorLayerMask;
-    [SerializeField] private Camera _camera;
+    [SerializeField] private LayerMask _surfaceLayerMask;
 
+    private Camera _camera;
     private IRayProvider _rayProvider;
     private Vector2 _startMousePosition;
     private float _mouseDownTime;
     private float _dragDelay = 0.1f;
     private bool _selectionInProgress = false;
+    private bool _selectionExtended = false;
 
     private void Awake()
     {
         _rayProvider = GetComponent<IRayProvider>();
+        _camera = _rayProvider.GetCamera();
     }
 
     private void Update()
     {
+
         if (_selectionInProgress)
         {
             ResizeSelectionBox();
@@ -52,16 +55,28 @@ public class ElementsSelectionResponse : MonoBehaviour, IResponse
         {
             foreach (ISelection unit in _unitSelectionManager.AvailableUnits)
             {
-                if(unit is MonoBehaviour monoBehaviour)
+                Vector2 unitScreenPosition = _camera.WorldToScreenPoint(unit.CurrentPosition);
+                bool isInSelectionBox = UnitIsInSelectionBox(unitScreenPosition, bounds);
+
+                if (!_selectionExtended) //no extend selection response
                 {
-                    Vector2 unitScreenPosition = _camera.WorldToScreenPoint(monoBehaviour.transform.position);
                     if (UnitIsInSelectionBox(unitScreenPosition, bounds))
                     {
                         _unitSelectionManager.Select(unit);
+                        unit.OnHoverEnter();
                     }
                     else
                     {
                         _unitSelectionManager.Deselect(unit);
+                        unit.OnHoverExit();
+                    }
+                }
+                else //extended selection response
+                {
+                    if (UnitIsInSelectionBox(unitScreenPosition, bounds))
+                    {
+                        _unitSelectionManager.Select(unit);
+                        unit.OnHoverEnter();
                     }
                 }
             }
@@ -78,28 +93,31 @@ public class ElementsSelectionResponse : MonoBehaviour, IResponse
         if (Physics.Raycast(ray, out RaycastHit hit, _unitLayerMask)
             && hit.collider.TryGetComponent<ISelection>(out ISelection unit))
         {
-            //if (Keyboard.current.leftShiftKey.isPressed)//redo to new input
-            //{
-            //    if (_unitSelectionManager.IsSelected(unit))
-            //    {
-            //        _unitSelectionManager.Deselect(unit);
-            //    }
-            //    else
-            //    {
-            //        _unitSelectionManager.Select(unit);
-            //    }
-            //}
-            //else
-            //{
+            if (_selectionExtended) //extend selection response
+            {
+                if (_unitSelectionManager.IsSelected(unit))
+                {
+                    _unitSelectionManager.Deselect(unit);
+                    unit.OnDeselected();
+                }
+                else
+                {
+                    _unitSelectionManager.Select(unit);
+                }
+            }
+            else //no extend selection response
+            {
                 _unitSelectionManager.DeselectAll();
+
                 _unitSelectionManager.Select(unit);
-            //}
+            }
         }
-        else if (_mouseDownTime + _dragDelay > Time.time)
+        else if (_mouseDownTime + _dragDelay > Time.time) // deselection
         {
             _unitSelectionManager.DeselectAll();
         }
         _mouseDownTime = 0;
+        _unitSelectionManager.DehoverAll();
     }
 
     private bool UnitIsInSelectionBox(Vector2 position, Bounds bounds)
@@ -108,12 +126,12 @@ public class ElementsSelectionResponse : MonoBehaviour, IResponse
             && position.y > bounds.min.y && position.y < bounds.max.y;
     }
 
-    public void OnRightMouseButton()
+    public void OnRightMouseButton()//redo
     {
         if (_unitSelectionManager.SelectedUnits.Count > 0)
         {
             Ray ray = _rayProvider.CreateRayAtMousePosition();
-            if (Physics.Raycast(ray, out RaycastHit hit, _floorLayerMask))
+            if (Physics.Raycast(ray, out RaycastHit hit, _surfaceLayerMask))
             {
                 foreach (SelectableUnit unit in _unitSelectionManager.SelectedUnits)
                 {
@@ -121,10 +139,15 @@ public class ElementsSelectionResponse : MonoBehaviour, IResponse
                 }
             }
         }
-        if(_unitSelectionManager.SelectedBuildings.Count > 0)
-        {
-            foreach(SelectableBuilding building in _unitSelectionManager.SelectedBuildings)
-                building.OnDeselected();//
-        }
+    }
+
+    public void OnExtendSelectionStarted()
+    {
+        _selectionExtended = true;
+    }
+
+    public void OnExtendSelectionCanceled()
+    {
+        _selectionExtended = false;
     }
 }

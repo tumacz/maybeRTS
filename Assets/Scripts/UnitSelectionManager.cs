@@ -3,65 +3,40 @@ using UnityEngine;
 
 public class UnitSelectionManager : MonoBehaviour
 {
-    public HashSet<SelectableUnit> SelectedUnits = new HashSet<SelectableUnit>();
-    public HashSet<SelectableBuilding> SelectedBuildings = new HashSet<SelectableBuilding>();
+    public HashSet<ISelection> SelectedUnits = new HashSet<ISelection>();
 
     public List<ISelection> AvailableUnits = new List<ISelection>();
 
     public void Select(ISelection unit)
     {
-        if (unit is SelectableUnit selectableUnit)
-        {
-            SelectedUnits.Add(selectableUnit);
-        }
-        else if (unit is SelectableBuilding selectableBuilding)
-        {
-            SelectedBuildings.Add(selectableBuilding);
-        }
-
-        unit.OnSelected();
+        SelectedUnits.Add(unit);
     }
 
     public void Deselect(ISelection unit)
     {
-        if (unit is SelectableUnit selectableUnit)
-        {
-            SelectedUnits.Remove(selectableUnit);
-        }
-        else if (unit is SelectableBuilding selectableBuilding)
-        {
-            SelectedBuildings.Remove(selectableBuilding);
-        }
-
-        unit.OnDeselected();
+        SelectedUnits.Remove(unit);
     }
 
     public void DeselectAll()
     {
-        foreach (SelectableUnit unit in SelectedUnits)
+        foreach (ISelection unit in SelectedUnits)
         {
             unit.OnDeselected();
         }
         SelectedUnits.Clear();
+    }
 
-        foreach (SelectableBuilding building in SelectedBuildings)
+    public void DehoverAll()
+    {
+        foreach (ISelection unit in SelectedUnits)
         {
-            building.OnDeselected();
+            unit.OnHoverExit();
+            unit.OnSelected();
         }
-        SelectedBuildings.Clear();
     }
 
     public bool IsSelected(ISelection unit)
     {
-        if (unit is SelectableUnit selectableUnit)
-        {
-            return SelectedUnits.Contains(selectableUnit);
-        }
-        else if (unit is SelectableBuilding selectableBuilding)
-        {
-            return SelectedBuildings.Contains(selectableBuilding);
-        }
-
-        return false;
+        return SelectedUnits.Contains(unit);
     }
 }

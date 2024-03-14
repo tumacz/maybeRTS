@@ -22,6 +22,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ExtendSelection",
+                    "type": "Value",
+                    "id": "58337831-014b-4b41-961f-b84ed3d1427f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MouseVector",
+                    "type": "Value",
+                    "id": "68d0e156-e26f-4162-821c-6955b893f133",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -44,6 +62,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f2c1a0cb-5a8c-4bcb-9bf9-4d2a96a4c3d5",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ExtendSelection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8082f492-5b5c-4304-bd66-ce4728f588aa",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseVector",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

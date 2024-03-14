@@ -28,4 +28,20 @@ internal class BasicUnitSelectionResponse : MonoBehaviour, ISelectionResponse
             _renderer.material.color = _defaultColor;
         }
     }
+
+    public void OnHoverEnterResponse()
+    {
+        if (_renderer != null)
+        {
+            _renderer.material.color = Color.cyan;
+        }
+    }
+
+    public void OnHoverExitResponse()
+    {
+        if (_renderer != null)
+        {
+            _renderer.material.color = _defaultColor;
+        }
+    }
 }
