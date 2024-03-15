@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Utiles;
 
 public class SelectableBuilding : MonoBehaviour, ISelection
 {
@@ -6,6 +7,8 @@ public class SelectableBuilding : MonoBehaviour, ISelection
     private ISelectionResponse _selectionResponse;
 
     public Vector3 CurrentPosition => transform.position;
+
+    public UnitType UnitType => UnitType.Bulding;
 
     private void Awake()
     {
@@ -33,11 +36,16 @@ public class SelectableBuilding : MonoBehaviour, ISelection
 
     public void OnHoverEnter()
     {
-        throw new System.NotImplementedException();
+        _selectionResponse.OnHoverEnterResponse();
     }
 
     public void OnHoverExit()
     {
-        throw new System.NotImplementedException();
+        _selectionResponse.OnHoverExitResponse();
+    }
+
+    public void Respond(Vector3 position)
+    {
+        Debug.Log(position);
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using static Utiles;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class SelectableUnit : MonoBehaviour, ISelection
@@ -9,6 +10,8 @@ public class SelectableUnit : MonoBehaviour, ISelection
     private ISelectionResponse _selectionResponse;
 
     public Vector3 CurrentPosition => transform.position;
+
+    public UnitType UnitType => UnitType.Unit;
 
     private void Awake()
     {
@@ -25,7 +28,7 @@ public class SelectableUnit : MonoBehaviour, ISelection
         }
     }
 
-    public void MoveTo(Vector3 position)
+    private void MoveTo(Vector3 position)
     {
         if (_agent != null)
         {
@@ -63,5 +66,10 @@ public class SelectableUnit : MonoBehaviour, ISelection
         {
             _selectionResponse.OnHoverExitResponse();
         }
+    }
+
+    public void Respond(Vector3 position)
+    {
+        MoveTo(position);
     }
 }

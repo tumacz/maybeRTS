@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Scripting;
 
-public class UnitManipulator : MonoBehaviour, IResponse
+public class UnitSelector : MonoBehaviour, IControllerResponse
 {
     [SerializeField] private UnitSelectionManager _unitSelectionManager;
     [SerializeField] private RectTransform _selectionbox;
@@ -118,6 +119,7 @@ public class UnitManipulator : MonoBehaviour, IResponse
         }
         _mouseDownTime = 0;
         _unitSelectionManager.DehoverAll();
+        _unitSelectionManager.CheckSelected();
     }
 
     private bool UnitIsInSelectionBox(Vector2 position, Bounds bounds)
@@ -133,9 +135,13 @@ public class UnitManipulator : MonoBehaviour, IResponse
             Ray ray = _rayProvider.CreateRayAtMousePosition();
             if (Physics.Raycast(ray, out RaycastHit hit, _surfaceLayerMask))
             {
-                foreach (SelectableUnit unit in _unitSelectionManager.SelectedUnits)
+                foreach (ISelection unit in _unitSelectionManager.SelectedUnits)
                 {
-                    unit.MoveTo(hit.point);
+                    unit.Respond(hit.point);
+                }
+                foreach (ISelection unit in _unitSelectionManager.SelectedUnits)
+                {
+                    return;
                 }
             }
         }

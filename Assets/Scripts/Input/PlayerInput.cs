@@ -24,7 +24,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     ""name"": ""PlayerInput"",
     ""maps"": [
         {
-            ""name"": ""MouseObjects"",
+            ""name"": ""Mouse"",
             ""id"": ""f84e1229-141a-4e72-aaec-46b71e0db778"",
             ""actions"": [
                 {
@@ -38,27 +38,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""MouseRight"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""ce061f99-1b9a-449a-860c-0b38156ff893"",
                     ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ExtendSelection"",
-                    ""type"": ""Value"",
-                    ""id"": ""58337831-014b-4b41-961f-b84ed3d1427f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""MouseVector"",
-                    ""type"": ""Value"",
-                    ""id"": ""68d0e156-e26f-4162-821c-6955b893f133"",
-                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -86,26 +68,112 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""MouseRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Keyboard"",
+            ""id"": ""14f7ada3-cc22-4ce3-9706-b94724f60d12"",
+            ""actions"": [
+                {
+                    ""name"": ""MoveForward"",
+                    ""type"": ""Value"",
+                    ""id"": ""eb617dac-7b82-40d7-a59f-c22fadddb727"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""MoveBack"",
+                    ""type"": ""Value"",
+                    ""id"": ""cf2c943a-8596-4400-9608-36b11d525cd7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MoveLeft"",
+                    ""type"": ""Value"",
+                    ""id"": ""348c26c3-9989-4c32-a59c-4dd32a034d91"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MoveRight"",
+                    ""type"": ""Value"",
+                    ""id"": ""44966aa5-2aec-4769-8e86-b0c58f9acfd1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ExtendSelection"",
+                    ""type"": ""Value"",
+                    ""id"": ""0057c664-15c6-42c2-9fba-1a5fe81acf3d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
                     ""name"": """",
-                    ""id"": ""f2c1a0cb-5a8c-4bcb-9bf9-4d2a96a4c3d5"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""id"": ""1c3758a5-c27f-4829-ac66-f43946d079b0"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ExtendSelection"",
+                    ""action"": ""MoveForward"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8082f492-5b5c-4304-bd66-ce4728f588aa"",
-                    ""path"": ""<Mouse>/position"",
+                    ""id"": ""e572b2d1-8a04-40fa-b6c6-08260bcdd801"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MouseVector"",
+                    ""action"": ""MoveBack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d3edf620-d583-45d5-a9ea-59ae0818f6cd"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d0d0a00-cf88-4234-9c8e-51d0f17f1b02"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6cb1eae1-ba4d-4636-a9e0-5f9efcb8ce2c"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExtendSelection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -114,12 +182,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // MouseObjects
-        m_MouseObjects = asset.FindActionMap("MouseObjects", throwIfNotFound: true);
-        m_MouseObjects_MouseLeft = m_MouseObjects.FindAction("MouseLeft", throwIfNotFound: true);
-        m_MouseObjects_MouseRight = m_MouseObjects.FindAction("MouseRight", throwIfNotFound: true);
-        m_MouseObjects_ExtendSelection = m_MouseObjects.FindAction("ExtendSelection", throwIfNotFound: true);
-        m_MouseObjects_MouseVector = m_MouseObjects.FindAction("MouseVector", throwIfNotFound: true);
+        // Mouse
+        m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
+        m_Mouse_MouseLeft = m_Mouse.FindAction("MouseLeft", throwIfNotFound: true);
+        m_Mouse_MouseRight = m_Mouse.FindAction("MouseRight", throwIfNotFound: true);
+        // Keyboard
+        m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
+        m_Keyboard_MoveForward = m_Keyboard.FindAction("MoveForward", throwIfNotFound: true);
+        m_Keyboard_MoveBack = m_Keyboard.FindAction("MoveBack", throwIfNotFound: true);
+        m_Keyboard_MoveLeft = m_Keyboard.FindAction("MoveLeft", throwIfNotFound: true);
+        m_Keyboard_MoveRight = m_Keyboard.FindAction("MoveRight", throwIfNotFound: true);
+        m_Keyboard_ExtendSelection = m_Keyboard.FindAction("ExtendSelection", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -178,45 +251,35 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // MouseObjects
-    private readonly InputActionMap m_MouseObjects;
-    private List<IMouseObjectsActions> m_MouseObjectsActionsCallbackInterfaces = new List<IMouseObjectsActions>();
-    private readonly InputAction m_MouseObjects_MouseLeft;
-    private readonly InputAction m_MouseObjects_MouseRight;
-    private readonly InputAction m_MouseObjects_ExtendSelection;
-    private readonly InputAction m_MouseObjects_MouseVector;
-    public struct MouseObjectsActions
+    // Mouse
+    private readonly InputActionMap m_Mouse;
+    private List<IMouseActions> m_MouseActionsCallbackInterfaces = new List<IMouseActions>();
+    private readonly InputAction m_Mouse_MouseLeft;
+    private readonly InputAction m_Mouse_MouseRight;
+    public struct MouseActions
     {
         private @PlayerInput m_Wrapper;
-        public MouseObjectsActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MouseLeft => m_Wrapper.m_MouseObjects_MouseLeft;
-        public InputAction @MouseRight => m_Wrapper.m_MouseObjects_MouseRight;
-        public InputAction @ExtendSelection => m_Wrapper.m_MouseObjects_ExtendSelection;
-        public InputAction @MouseVector => m_Wrapper.m_MouseObjects_MouseVector;
-        public InputActionMap Get() { return m_Wrapper.m_MouseObjects; }
+        public MouseActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MouseLeft => m_Wrapper.m_Mouse_MouseLeft;
+        public InputAction @MouseRight => m_Wrapper.m_Mouse_MouseRight;
+        public InputActionMap Get() { return m_Wrapper.m_Mouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MouseObjectsActions set) { return set.Get(); }
-        public void AddCallbacks(IMouseObjectsActions instance)
+        public static implicit operator InputActionMap(MouseActions set) { return set.Get(); }
+        public void AddCallbacks(IMouseActions instance)
         {
-            if (instance == null || m_Wrapper.m_MouseObjectsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_MouseObjectsActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_MouseActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MouseActionsCallbackInterfaces.Add(instance);
             @MouseLeft.started += instance.OnMouseLeft;
             @MouseLeft.performed += instance.OnMouseLeft;
             @MouseLeft.canceled += instance.OnMouseLeft;
             @MouseRight.started += instance.OnMouseRight;
             @MouseRight.performed += instance.OnMouseRight;
             @MouseRight.canceled += instance.OnMouseRight;
-            @ExtendSelection.started += instance.OnExtendSelection;
-            @ExtendSelection.performed += instance.OnExtendSelection;
-            @ExtendSelection.canceled += instance.OnExtendSelection;
-            @MouseVector.started += instance.OnMouseVector;
-            @MouseVector.performed += instance.OnMouseVector;
-            @MouseVector.canceled += instance.OnMouseVector;
         }
 
-        private void UnregisterCallbacks(IMouseObjectsActions instance)
+        private void UnregisterCallbacks(IMouseActions instance)
         {
             @MouseLeft.started -= instance.OnMouseLeft;
             @MouseLeft.performed -= instance.OnMouseLeft;
@@ -224,34 +287,112 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MouseRight.started -= instance.OnMouseRight;
             @MouseRight.performed -= instance.OnMouseRight;
             @MouseRight.canceled -= instance.OnMouseRight;
-            @ExtendSelection.started -= instance.OnExtendSelection;
-            @ExtendSelection.performed -= instance.OnExtendSelection;
-            @ExtendSelection.canceled -= instance.OnExtendSelection;
-            @MouseVector.started -= instance.OnMouseVector;
-            @MouseVector.performed -= instance.OnMouseVector;
-            @MouseVector.canceled -= instance.OnMouseVector;
         }
 
-        public void RemoveCallbacks(IMouseObjectsActions instance)
+        public void RemoveCallbacks(IMouseActions instance)
         {
-            if (m_Wrapper.m_MouseObjectsActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_MouseActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IMouseObjectsActions instance)
+        public void SetCallbacks(IMouseActions instance)
         {
-            foreach (var item in m_Wrapper.m_MouseObjectsActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_MouseActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_MouseObjectsActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_MouseActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public MouseObjectsActions @MouseObjects => new MouseObjectsActions(this);
-    public interface IMouseObjectsActions
+    public MouseActions @Mouse => new MouseActions(this);
+
+    // Keyboard
+    private readonly InputActionMap m_Keyboard;
+    private List<IKeyboardActions> m_KeyboardActionsCallbackInterfaces = new List<IKeyboardActions>();
+    private readonly InputAction m_Keyboard_MoveForward;
+    private readonly InputAction m_Keyboard_MoveBack;
+    private readonly InputAction m_Keyboard_MoveLeft;
+    private readonly InputAction m_Keyboard_MoveRight;
+    private readonly InputAction m_Keyboard_ExtendSelection;
+    public struct KeyboardActions
+    {
+        private @PlayerInput m_Wrapper;
+        public KeyboardActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MoveForward => m_Wrapper.m_Keyboard_MoveForward;
+        public InputAction @MoveBack => m_Wrapper.m_Keyboard_MoveBack;
+        public InputAction @MoveLeft => m_Wrapper.m_Keyboard_MoveLeft;
+        public InputAction @MoveRight => m_Wrapper.m_Keyboard_MoveRight;
+        public InputAction @ExtendSelection => m_Wrapper.m_Keyboard_ExtendSelection;
+        public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(KeyboardActions set) { return set.Get(); }
+        public void AddCallbacks(IKeyboardActions instance)
+        {
+            if (instance == null || m_Wrapper.m_KeyboardActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_KeyboardActionsCallbackInterfaces.Add(instance);
+            @MoveForward.started += instance.OnMoveForward;
+            @MoveForward.performed += instance.OnMoveForward;
+            @MoveForward.canceled += instance.OnMoveForward;
+            @MoveBack.started += instance.OnMoveBack;
+            @MoveBack.performed += instance.OnMoveBack;
+            @MoveBack.canceled += instance.OnMoveBack;
+            @MoveLeft.started += instance.OnMoveLeft;
+            @MoveLeft.performed += instance.OnMoveLeft;
+            @MoveLeft.canceled += instance.OnMoveLeft;
+            @MoveRight.started += instance.OnMoveRight;
+            @MoveRight.performed += instance.OnMoveRight;
+            @MoveRight.canceled += instance.OnMoveRight;
+            @ExtendSelection.started += instance.OnExtendSelection;
+            @ExtendSelection.performed += instance.OnExtendSelection;
+            @ExtendSelection.canceled += instance.OnExtendSelection;
+        }
+
+        private void UnregisterCallbacks(IKeyboardActions instance)
+        {
+            @MoveForward.started -= instance.OnMoveForward;
+            @MoveForward.performed -= instance.OnMoveForward;
+            @MoveForward.canceled -= instance.OnMoveForward;
+            @MoveBack.started -= instance.OnMoveBack;
+            @MoveBack.performed -= instance.OnMoveBack;
+            @MoveBack.canceled -= instance.OnMoveBack;
+            @MoveLeft.started -= instance.OnMoveLeft;
+            @MoveLeft.performed -= instance.OnMoveLeft;
+            @MoveLeft.canceled -= instance.OnMoveLeft;
+            @MoveRight.started -= instance.OnMoveRight;
+            @MoveRight.performed -= instance.OnMoveRight;
+            @MoveRight.canceled -= instance.OnMoveRight;
+            @ExtendSelection.started -= instance.OnExtendSelection;
+            @ExtendSelection.performed -= instance.OnExtendSelection;
+            @ExtendSelection.canceled -= instance.OnExtendSelection;
+        }
+
+        public void RemoveCallbacks(IKeyboardActions instance)
+        {
+            if (m_Wrapper.m_KeyboardActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IKeyboardActions instance)
+        {
+            foreach (var item in m_Wrapper.m_KeyboardActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_KeyboardActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public KeyboardActions @Keyboard => new KeyboardActions(this);
+    public interface IMouseActions
     {
         void OnMouseLeft(InputAction.CallbackContext context);
         void OnMouseRight(InputAction.CallbackContext context);
+    }
+    public interface IKeyboardActions
+    {
+        void OnMoveForward(InputAction.CallbackContext context);
+        void OnMoveBack(InputAction.CallbackContext context);
+        void OnMoveLeft(InputAction.CallbackContext context);
+        void OnMoveRight(InputAction.CallbackContext context);
         void OnExtendSelection(InputAction.CallbackContext context);
-        void OnMouseVector(InputAction.CallbackContext context);
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2934708184766713559}
   - component: {fileID: 5708336320339511832}
   - component: {fileID: 5900767675057083698}
-  - component: {fileID: 6555014686296558253}
+  - component: {fileID: 2830382667694701037}
   m_Layer: 7
   m_Name: SelectableBulding
   m_TagString: Untagged
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca69dcccb93e014c812ce3c2347328a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6555014686296558253
+--- !u!114 &2830382667694701037
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

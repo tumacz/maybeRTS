@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IResponse
+public interface IControllerResponse
 {
     void OnStartSelection();
     void OnEndSelection();

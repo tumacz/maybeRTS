@@ -39,4 +39,44 @@ public class UnitSelectionManager : MonoBehaviour
     {
         return SelectedUnits.Contains(unit);
     }
+
+    public void CheckSelected()
+    {
+        if (SelectedUnits.Count > 0)
+        {
+            bool containsSelectableUnit = false;
+
+            // Sprawdzamy, czy na liœcie jest przynajmniej jedna jednostka (Unit)
+            foreach (ISelection selectedUnit in SelectedUnits)
+            {
+                if (selectedUnit.UnitType == Utiles.UnitType.Unit)
+                {
+                    containsSelectableUnit = true;
+                    break;
+                }
+            }
+
+            // Jeœli na liœcie jest przynajmniej jedna jednostka (Unit), dodajemy budynki (SelectableBuilding) do listy tymczasowej
+            if (containsSelectableUnit)
+            {
+                List<ISelection> buildingsToDeselect = new List<ISelection>();
+
+                foreach (ISelection selectableUnit in SelectedUnits)
+                {
+                    if (selectableUnit.UnitType == Utiles.UnitType.Bulding)
+                    {
+                        buildingsToDeselect.Add(selectableUnit);
+                    }
+                }
+
+                // Odznaczamy budynki (SelectableBuilding)
+                foreach (ISelection building in buildingsToDeselect)
+                {
+                    building.OnDeselected();
+                    Deselect(building);
+                }
+            }
+        }
+    }
+
 }
