@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
-using static Utiles;
+using static UnitUtiles;
 
-[RequireComponent(typeof(NavMeshAgent))]
-public class SelectableUnit : MonoBehaviour, ISelection
+[RequireComponent (typeof(AgentType))]
+public class SelectableAgent : MonoBehaviour, ISelection
 {
-    private NavMeshAgent _agent;
+
+    private AgentType _agentType;
     private UnitSelectionManager _selectionManager;
     private ISelectionResponse _selectionResponse;
 
@@ -15,7 +16,7 @@ public class SelectableUnit : MonoBehaviour, ISelection
 
     private void Awake()
     {
-        _agent = GetComponent<NavMeshAgent>();
+        _agentType = GetComponent<AgentType>();
         _selectionResponse = GetComponent<ISelectionResponse>();
         _selectionManager = FindObjectOfType<UnitSelectionManager>();
     }
@@ -25,14 +26,6 @@ public class SelectableUnit : MonoBehaviour, ISelection
         if(_selectionManager != null)
         {
             _selectionManager.AvailableUnits.Add(this);
-        }
-    }
-
-    private void MoveTo(Vector3 position)
-    {
-        if (_agent != null)
-        {
-            _agent.SetDestination(position);
         }
     }
 
@@ -68,8 +61,8 @@ public class SelectableUnit : MonoBehaviour, ISelection
         }
     }
 
-    public void Respond(Vector3 position)
+    public void Respond(Vector3 position, LayerMask layer)
     {
-        MoveTo(position);
+        _agentType.ExecuteRespond(position, layer);
     }
 }

@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Scripting;
 
-public class UnitSelector : MonoBehaviour, IControllerResponse
+public class PlayerSelectionTool : MonoBehaviour, IControllerLeftResponse
 {
     [SerializeField] private UnitSelectionManager _unitSelectionManager;
     [SerializeField] private RectTransform _selectionbox;
@@ -50,18 +49,18 @@ public class UnitSelector : MonoBehaviour, IControllerResponse
         _selectionbox.anchoredPosition = _startMousePosition + new Vector2(width / 2f, height / 2f);
         _selectionbox.sizeDelta = new Vector2(Mathf.Abs(width), Mathf.Abs(height));
 
-        Bounds bounds = new Bounds(_selectionbox.anchoredPosition, _selectionbox.sizeDelta);
+        Bounds selectionBoxBounds = new Bounds(_selectionbox.anchoredPosition, _selectionbox.sizeDelta);
 
         if (_unitSelectionManager.AvailableUnits.Count > 0)
         {
             foreach (ISelection unit in _unitSelectionManager.AvailableUnits)
             {
                 Vector2 unitScreenPosition = _camera.WorldToScreenPoint(unit.CurrentPosition);
-                bool isInSelectionBox = UnitIsInSelectionBox(unitScreenPosition, bounds);
+                bool isInSelectionBox = UnitIsInSelectionBox(unitScreenPosition, selectionBoxBounds);
 
                 if (!_selectionExtended) //no extend selection response
                 {
-                    if (UnitIsInSelectionBox(unitScreenPosition, bounds))
+                    if (UnitIsInSelectionBox(unitScreenPosition, selectionBoxBounds))
                     {
                         _unitSelectionManager.Select(unit);
                         unit.OnHoverEnter();
@@ -74,7 +73,7 @@ public class UnitSelector : MonoBehaviour, IControllerResponse
                 }
                 else //extended selection response
                 {
-                    if (UnitIsInSelectionBox(unitScreenPosition, bounds))
+                    if (UnitIsInSelectionBox(unitScreenPosition, selectionBoxBounds))
                     {
                         _unitSelectionManager.Select(unit);
                         unit.OnHoverEnter();
@@ -126,25 +125,6 @@ public class UnitSelector : MonoBehaviour, IControllerResponse
     {
         return position.x > bounds.min.x && position.x < bounds.max.x
             && position.y > bounds.min.y && position.y < bounds.max.y;
-    }
-
-    public void OnRightMouseButton()//redo
-    {
-        if (_unitSelectionManager.SelectedUnits.Count > 0)
-        {
-            Ray ray = _rayProvider.CreateRayAtMousePosition();
-            if (Physics.Raycast(ray, out RaycastHit hit, _surfaceLayerMask))
-            {
-                foreach (ISelection unit in _unitSelectionManager.SelectedUnits)
-                {
-                    unit.Respond(hit.point);
-                }
-                foreach (ISelection unit in _unitSelectionManager.SelectedUnits)
-                {
-                    return;
-                }
-            }
-        }
     }
 
     public void OnExtendSelectionStarted()

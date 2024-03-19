@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 
-public interface IControllerResponse
+public interface IControllerLeftResponse
 {
     void OnStartSelection();
     void OnEndSelection();
-    void OnRightMouseButton();
     void OnExtendSelectionStarted();
     void OnExtendSelectionCanceled();
 }

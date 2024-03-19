@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using static Utiles;
+using static UnitUtiles;
 
 public interface ISelection
 {
@@ -7,7 +7,7 @@ public interface ISelection
     void OnSelected();
     void OnHoverEnter();
     void OnHoverExit();
-    void Respond(Vector3 position);
+    void Respond(Vector3 position, LayerMask layer);
     Vector3 CurrentPosition { get; }
     UnitType UnitType { get; }
 }

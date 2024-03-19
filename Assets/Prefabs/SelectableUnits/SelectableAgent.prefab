@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 7787579153588125532}
   - component: {fileID: 728713851032691789}
   - component: {fileID: 945050413293551928}
+  - component: {fileID: 1649310487709865822}
   - component: {fileID: 7478201348912903213}
+  - component: {fileID: 4989794526364666333}
   m_Layer: 7
   m_Name: SelectableAgent
   m_TagString: Untagged
@@ -144,7 +146,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847acc71bd0d53f4fb3a32ed5e2f2076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectionResponse: {fileID: 7478201348912903213}
+--- !u!114 &1649310487709865822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7917409016214872276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d3bf450ca4393d4697b8d54c52dc52f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7478201348912903213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,3 +171,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderer: {fileID: 2303622071683089978}
+--- !u!114 &4989794526364666333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7917409016214872276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d3bf450ca4393d4697b8d54c52dc52f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnitUtiles;
 
 public class UnitSelectionManager : MonoBehaviour
 {
@@ -46,24 +47,22 @@ public class UnitSelectionManager : MonoBehaviour
         {
             bool containsSelectableUnit = false;
 
-            // Sprawdzamy, czy na liœcie jest przynajmniej jedna jednostka (Unit)
             foreach (ISelection selectedUnit in SelectedUnits)
             {
-                if (selectedUnit.UnitType == Utiles.UnitType.Unit)
+                if (selectedUnit.UnitType == UnitType.Unit)
                 {
                     containsSelectableUnit = true;
                     break;
                 }
             }
 
-            // Jeœli na liœcie jest przynajmniej jedna jednostka (Unit), dodajemy budynki (SelectableBuilding) do listy tymczasowej
             if (containsSelectableUnit)
             {
                 List<ISelection> buildingsToDeselect = new List<ISelection>();
 
                 foreach (ISelection selectableUnit in SelectedUnits)
                 {
-                    if (selectableUnit.UnitType == Utiles.UnitType.Bulding)
+                    if (selectableUnit.UnitType == UnitType.Bulding)
                     {
                         buildingsToDeselect.Add(selectableUnit);
                     }

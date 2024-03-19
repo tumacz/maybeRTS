@@ -4,21 +4,23 @@ using UnityEngine.InputSystem;
 public class InputDelegator : MonoBehaviour
 {
     private PlayerInput _inputControls;
-    private IControllerResponse _response;
+    private IControllerLeftResponse _leftResponse;
     private IPlayerResponse _playerResponse;
+    private IControllerRightResponse _rightResponse;
 
     private void Awake()
     {
         _inputControls = new PlayerInput();
-        _response = GetComponent<IControllerResponse>();
+        _leftResponse = GetComponent<IControllerLeftResponse>();
+        _rightResponse = GetComponent<IControllerRightResponse>();
         _playerResponse = GetComponent<IPlayerResponse>();
 
-        _inputControls.Mouse.MouseLeft.started += ctx => _response?.OnStartSelection();
-        _inputControls.Mouse.MouseLeft.canceled += ctx => _response?.OnEndSelection();
-        _inputControls.Mouse.MouseRight.performed += ctx => _response?.OnRightMouseButton();
+        _inputControls.Mouse.MouseLeft.started += ctx => _leftResponse?.OnStartSelection();
+        _inputControls.Mouse.MouseLeft.canceled += ctx => _leftResponse?.OnEndSelection();
+        _inputControls.Mouse.MouseRight.performed += ctx => _rightResponse?.OnRightMouseButton();
 
-        _inputControls.Keyboard.ExtendSelection.started += ctx => _response?.OnExtendSelectionStarted();
-        _inputControls.Keyboard.ExtendSelection.canceled += ctx => _response?.OnExtendSelectionCanceled();
+        _inputControls.Keyboard.ExtendSelection.started += ctx => _leftResponse?.OnExtendSelectionStarted();
+        _inputControls.Keyboard.ExtendSelection.canceled += ctx => _leftResponse?.OnExtendSelectionCanceled();
 
         _inputControls.Keyboard.MoveForward.started += ctx => _playerResponse?.MoveForward();
         _inputControls.Keyboard.MoveForward.canceled += ctx => _playerResponse?.CancelForward();

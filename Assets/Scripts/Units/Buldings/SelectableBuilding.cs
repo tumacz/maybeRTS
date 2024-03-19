@@ -1,5 +1,5 @@
 using UnityEngine;
-using static Utiles;
+using static UnitUtiles;
 
 public class SelectableBuilding : MonoBehaviour, ISelection
 {
@@ -44,8 +44,9 @@ public class SelectableBuilding : MonoBehaviour, ISelection
         _selectionResponse.OnHoverExitResponse();
     }
 
-    public void Respond(Vector3 position)
+    public void Respond(Vector3 position, LayerMask layer)
     {
         Debug.Log(position);
+        Debug.Log(LayerMask.LayerToName(layer));
     }
 }
