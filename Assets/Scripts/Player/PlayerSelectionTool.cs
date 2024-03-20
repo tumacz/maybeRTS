@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,8 @@ public class PlayerSelectionTool : MonoBehaviour, IControllerLeftResponse
     [SerializeField] private RectTransform _selectionbox;
     [SerializeField] private LayerMask _unitLayerMask;
     [SerializeField] private LayerMask _surfaceLayerMask;
+
+    public event Action RequestTest;
 
     private Camera _camera;
     private IRayProvider _rayProvider;
@@ -38,6 +41,7 @@ public class PlayerSelectionTool : MonoBehaviour, IControllerLeftResponse
         _selectionbox.gameObject.SetActive(true);
         _startMousePosition = Mouse.current.position.ReadValue();
         _mouseDownTime = Time.time;
+        RequestTest?.Invoke();
     }
 
     private void ResizeSelectionBox()

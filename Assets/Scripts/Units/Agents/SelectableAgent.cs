@@ -2,11 +2,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using static UnitUtiles;
 
-[RequireComponent (typeof(AgentType))]
+[RequireComponent (typeof(AgentStateMachine))]
 public class SelectableAgent : MonoBehaviour, ISelection
 {
-
-    private AgentType _agentType;
+    private AgentStateMachine _agentStateMachine;
     private UnitSelectionManager _selectionManager;
     private ISelectionResponse _selectionResponse;
 
@@ -16,9 +15,9 @@ public class SelectableAgent : MonoBehaviour, ISelection
 
     private void Awake()
     {
-        _agentType = GetComponent<AgentType>();
+        _agentStateMachine = GetComponent<AgentStateMachine>();
         _selectionResponse = GetComponent<ISelectionResponse>();
-        _selectionManager = FindObjectOfType<UnitSelectionManager>();
+        _selectionManager = FindObjectOfType<UnitSelectionManager>();//redo zenject
     }
 
     private void Start()
@@ -63,6 +62,6 @@ public class SelectableAgent : MonoBehaviour, ISelection
 
     public void Respond(Vector3 position, LayerMask layer)
     {
-        _agentType.ExecuteRespond(position, layer);
+        _agentStateMachine.ExecuteRequest(position, layer);
     }
 }

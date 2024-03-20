@@ -11,7 +11,8 @@ public static class UnitUtiles
 
     public static class LayerType
     {
-        public const int UnitLayer = 7;
         public const int SurfaceLayer = 6;
+        public const int UnitLayer = 7;
+        public const int EnemyLayer = 8;
     }
 }
