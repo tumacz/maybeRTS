@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnitUtiles;
@@ -8,11 +11,16 @@ public class AgentStateMachine : MonoBehaviour
     public MovingState MovingState;
     public AttackingState AttackingState;
 
-    protected AgentState _currentAgentState;
-    protected Vector3 _currentDestination;
-    protected Vector3 _currentPosition => transform.position;
+    public AgentState _currentAgentState;
+    public AgentState _previousState; // Przechowuje poprzedni stan
+    private Vector3 _currentDestination;
+    public Vector3 _restingPosition;
+    private Vector3 _currentPosition => transform.position;
     public NavMeshAgent NavMeshAgent;
-    public Collider DetectionSphere;
+    private Collider DetectionSphere;
+
+
+    public Dictionary<GameObject, Vector3> SpotedEnemies = new Dictionary<GameObject, Vector3>();
 
     private void Awake()
     {
@@ -25,6 +33,8 @@ public class AgentStateMachine : MonoBehaviour
     private void Start()
     {
         SetState(RestingState);
+        _restingPosition = transform.position;
+        MovingState.Destination = _restingPosition;
     }
 
     private void Update()
@@ -34,24 +44,31 @@ public class AgentStateMachine : MonoBehaviour
 
     public void SetState(AgentState newState)
     {
+        _previousState = _currentAgentState;
         _currentAgentState = newState;
     }
 
-    internal void ExecuteRequest(Vector3 position, LayerMask layer)
+    internal void ExecuteRequest(GameObject hit, Vector3 position)
     {
-        if (layer.value == LayerType.SurfaceLayer)
+        if (hit.layer == LayerType.SurfaceLayer)
         {
-            SetState(MovingState);
+            MovingState.Destination = position;
             MoveTo(position);
+            SetState(MovingState);
         }
-        else if (layer.value == LayerType.UnitLayer)
+        else if (hit.layer == LayerType.UnitLayer)
         {
-            Debug.Log(LayerMask.LayerToName(layer) + "  Position: " + position);
-            
+            Debug.Log(LayerMask.LayerToName(hit.layer) + "  Position: " + hit.transform.position);
+        }
+        else if (hit.layer == LayerType.EnemyLayer)
+        {
+            AttackingState.Destination = hit.transform.position;
+            MoveTo(position);
+            SetState(AttackingState);
         }
     }
 
-    private void MoveTo(Vector3 position)
+    public void MoveTo(Vector3 position)
     {
         if (NavMeshAgent != null)
         {
@@ -65,16 +82,42 @@ public class AgentStateMachine : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == LayerType.EnemyLayer)
+        if (other.gameObject.layer == LayerType.EnemyLayer)
         {
-            Debug.Log("test");
-            SetState(AttackingState);
-            MoveTo(other.gameObject.transform.position);
+            Debug.Log("Enemy entered");
+            SpotedEnemies.Add(other.gameObject, other.gameObject.transform.position);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("test exit");
+        if (other.gameObject.layer == LayerType.EnemyLayer)
+        {
+            Debug.Log("Enemy exited");
+            SpotedEnemies.Remove(other.gameObject);
+            MoveTo(_restingPosition);
+            SetState(MovingState);
+        }
+    }
+
+    public void PerformAttack()
+    {
+        StartCoroutine(Attack());
+    }
+
+    private IEnumerator Attack()
+    {
+        Debug.Log("Rozpoczêcie ataku");
+        yield return new WaitForSeconds(1);
+        Debug.Log("Zakoñczenie ataku");
+
+        if (SpotedEnemies.Count == 0 && _previousState != null)
+        {   
+            if(_previousState == AttackingState)
+            {
+                SetState(RestingState);
+            }
+            SetState(_previousState);
+        }
     }
 }

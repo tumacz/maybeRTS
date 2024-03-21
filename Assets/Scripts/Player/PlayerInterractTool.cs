@@ -20,11 +20,12 @@ public class PlayerInterractTool : MonoBehaviour, IControllerRightResponse
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
                 int layerHit = hit.collider.gameObject.layer;
+                GameObject hitObject = hit.collider.gameObject;
                 if (IsLayerInRange(layerHit) && (IsLayerInMask(layerHit, _surfaceLayerMask) || IsLayerInMask(layerHit, _unitLayerMask)))
                 {
                     foreach (ISelection unit in _unitSelectionManager.SelectedUnits)
                     {
-                        unit.Respond(hit.point, layerHit);
+                        unit.Respond(hitObject, hit.point);
                     }
                 }
                 else
