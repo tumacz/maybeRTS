@@ -60,8 +60,8 @@ public class SelectableAgent : MonoBehaviour, ISelection
         }
     }
 
-    public void Respond(Vector3 position, LayerMask layer)
+    public void Respond(GameObject hit, Vector3 position)
     {
-        _agentStateMachine.ExecuteRequest(position, layer);
+        _agentStateMachine.ExecuteRequest(hit, position);
     }
 }

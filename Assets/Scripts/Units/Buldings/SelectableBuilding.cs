@@ -44,9 +44,9 @@ public class SelectableBuilding : MonoBehaviour, ISelection
         _selectionResponse.OnHoverExitResponse();
     }
 
-    public void Respond(Vector3 position, LayerMask layer)
+    public void Respond(GameObject hit, Vector3 position)
     {
         Debug.Log(position);
-        Debug.Log(LayerMask.LayerToName(layer));
+        Debug.Log(hit.layer.ToString());
     }
 }

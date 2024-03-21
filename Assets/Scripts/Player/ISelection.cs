@@ -7,7 +7,7 @@ public interface ISelection
     void OnSelected();
     void OnHoverEnter();
     void OnHoverExit();
-    void Respond(Vector3 position, LayerMask layer);
+    void Respond(GameObject hit, Vector3 position);
     Vector3 CurrentPosition { get; }
     UnitType UnitType { get; }
 }
