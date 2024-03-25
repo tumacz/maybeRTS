@@ -62,6 +62,6 @@ public class SelectableAgent : MonoBehaviour, ISelection
 
     public void Respond(GameObject hit, Vector3 position)
     {
-        _agentStateMachine.ExecuteRequest(hit, position);
+        _agentStateMachine.CurrentAgentState.ExecuteRequest(hit, position);
     }
 }

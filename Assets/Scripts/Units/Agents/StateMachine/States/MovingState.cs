@@ -5,19 +5,16 @@ public class MovingState : AgentState
 {
     private float _moveStateStoppingDistance = 0.5f;
 
-    public MovingState(AgentStateMachine agentStateMachine, Vector3 destination) : base(agentStateMachine, destination)
+    public MovingState(AgentStateMachine agentStateMachine, NavMeshAgent navMeshAgent) : base(agentStateMachine, navMeshAgent)
     {
-        _agentStateMachine.NavMeshAgent.stoppingDistance = _moveStateStoppingDistance;
+        navMeshAgent.stoppingDistance = _moveStateStoppingDistance;
     }
 
     public override void Execute()
     {
-        Debug.Log("Moving State");
         base.Execute();
 
-        _agentStateMachine.MoveTo(Destination);
-
-        if (_agentStateMachine.NavMeshAgent.remainingDistance <= _agentStateMachine.NavMeshAgent.stoppingDistance)
+        if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
         {
             _agentStateMachine.SetState(_agentStateMachine.RestingState);
         }

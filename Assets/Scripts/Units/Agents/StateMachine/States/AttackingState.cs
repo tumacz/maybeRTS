@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,52 +6,68 @@ public class AttackingState : AgentState
 {
     private float _attackDistance = 4f;
 
-    public AttackingState(AgentStateMachine agentStateMachine, Vector3 destination) : base(agentStateMachine, destination)
+    public AttackingState(AgentStateMachine agentStateMachine, NavMeshAgent navMeshAgent) : base(agentStateMachine, navMeshAgent)
     {
-        _agentStateMachine.NavMeshAgent.stoppingDistance = _attackDistance;
+        navMeshAgent.stoppingDistance = _attackDistance;
     }
 
     public override void Execute()
     {
-        Debug.Log("Attacking State");
-
         if (_agentStateMachine.SpotedEnemies.Count > 0)
         {
-            // Pocz¹tkowo ustaw najbli¿sz¹ odleg³oœæ na du¿¹ liczbê
             float closestDistance = Mathf.Infinity;
-            // Ustaw pocz¹tkowo cel na null
             GameObject closestEnemy = null;
 
-            // Iteruj przez wszystkich wrogów
-            foreach (var enemy in _agentStateMachine.SpotedEnemies)
+            foreach (var enemy in _agentStateMachine.SpotedEnemies) //!!!
             {
-                // Oblicz odleg³oœæ miêdzy agentem a wrogiem
-                float distanceToEnemy = Vector3.Distance(_agentStateMachine.transform.position, enemy.Value);
-                // Jeœli odleg³oœæ jest mniejsza od aktualnej najbli¿szej odleg³oœci
+                float distanceToEnemy = Vector3.Distance(_agentStateMachine.transform.position, enemy.transform.position);
+
                 if (distanceToEnemy < closestDistance)
                 {
-                    // Ustaw aktualnego wroga jako najbli¿szego wroga
                     closestDistance = distanceToEnemy;
-                    closestEnemy = enemy.Key;
+                    closestEnemy = enemy;
                 }
             }
 
-            // Jeœli najbli¿szy wróg zosta³ znaleziony
             if (closestEnemy != null)
             {
-                // Ustaw pozycjê najbli¿szego wroga jako cel ataku
-                _agentStateMachine.MoveTo(closestEnemy.transform.position);
+                MoveTo(closestEnemy.transform.position);
                 float distanceToEnemy = Vector3.Distance(_agentStateMachine.transform.position, closestEnemy.transform.position);
                 if (distanceToEnemy <= _attackDistance)
                 {
-                    _agentStateMachine.PerformAttack();
+                    PerformAttack();
                 }
             }
         }
         else
         {
-            // Jeœli nie ma wrogów, przejdŸ do stanu odpoczynku
-            _agentStateMachine.SetState(_agentStateMachine._previousState);
+            MoveTo(_agentStateMachine.RestingPosition);
+            _agentStateMachine.SetState(_agentStateMachine.PreviousState);
         }
     }
+
+    public void PerformAttack()
+    {
+        _agentStateMachine.StartCoroutine(Attack());
+    }
+
+    private IEnumerator Attack()
+    {
+        Debug.Log("Rozpocz?cie ataku");
+        yield return new WaitForSeconds(3);
+        Debug.Log("Zako?czenie ataku");
+
+        if (_agentStateMachine.SpotedEnemies.Count == 0)
+        {
+            if (_agentStateMachine.PreviousState == null || _agentStateMachine.PreviousState != _agentStateMachine.AttackingState)
+            {
+                _agentStateMachine.SetState(_agentStateMachine.RestingState);
+            }
+            else if (_agentStateMachine.PreviousState != null)
+            {
+                _agentStateMachine.SetState(_agentStateMachine.PreviousState);
+            }
+        }
+    }
+
 }
